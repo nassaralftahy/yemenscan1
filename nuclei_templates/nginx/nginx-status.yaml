@@ -1,0 +1,28 @@
+id: nginx-status
+info:
+  name: Nginx HTTP Stub Status Module Metric Disclosure
+  author: YemenScan-Core
+  severity: medium
+  description: صفحة stub_status في خادم Nginx متاحة للعامة، مما يكشف عن عدد الاتصالات
+    النشطة والطلبات المعالجة.
+  remediation: حظر الوصول لمسار stub_status إلا من عناوين IP الخاصة بالمراقبة (allow
+    127.0.0.1; deny all;).
+  tags:
+  - nginx
+  - stub-status
+  - recon
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/nginx_status'
+  - '{{BaseURL}}/stub_status'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - 'Active connections:'
+    - server accepts handled requests
+  - type: status
+    status:
+    - 200

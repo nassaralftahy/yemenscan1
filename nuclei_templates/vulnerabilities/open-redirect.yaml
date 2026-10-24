@@ -1,0 +1,31 @@
+id: open-redirect
+info:
+  name: Open URL Redirection Flaw
+  author: YemenScan-Core
+  severity: medium
+  description: تطبيق الويب يعيد توجيه المستخدمين إلى روابط خارجية غير موثوقة بناءً
+    على معاملات غير مفلترة، مما يسهل حملات التصيد الإلكتروني.
+  remediation: التحقق من صحة عناوين إعادة التوجيه وحصرها داخل النطاق نفسه أو استخدام
+    قائمة بيضاء معتمدة.
+  tags:
+  - redirect
+  - phishing
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?url=https://example.com'
+  - '{{BaseURL}}/?next=https://example.com'
+  - '{{BaseURL}}/?redirect=https://example.com'
+  matchers-condition: and
+  matchers:
+  - type: word
+    part: header
+    words:
+    - 'Location: https://example.com'
+  - type: status
+    status:
+    - 301
+    - 302
+    - 307
+    - 308

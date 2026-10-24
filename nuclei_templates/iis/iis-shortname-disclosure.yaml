@@ -1,0 +1,23 @@
+id: iis-shortname-disclosure
+info:
+  name: Microsoft IIS 8.3 Short Filename Disclosure via Tilde (~1)
+  author: YemenScan-Core
+  severity: medium
+  description: خادم IIS يفصح عن وجود الملفات والمجلدات المخفية عبر ميزة أسماء الملفات
+    القديمة 8.3 باستخدام محرف المدة (~1).
+  remediation: تعطيل إنشاء أسماء الملفات بتنسيق 8.3 في نظام الملفات Windows عبر تعيين
+    NtfsDisable8dot3NameCreation إلى 1 في السجل.
+  tags:
+  - iis
+  - shortname
+  - recon
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/*~1*/.aspx'
+  matchers-condition: and
+  matchers:
+  - type: status
+    status:
+    - 404

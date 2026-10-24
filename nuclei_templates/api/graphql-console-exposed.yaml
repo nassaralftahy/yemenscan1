@@ -1,0 +1,30 @@
+id: graphql-console-exposed
+info:
+  name: GraphQL Playground & GraphiQL Console Disclosure
+  author: YemenScan-Core
+  severity: medium
+  description: لوحة الاختبار التفاعلية GraphiQL / Playground مكشوفة للعامة، مما يسهل
+    بناء وتنفيذ استعلامات هجومية على واجهة البيانات.
+  remediation: تعطيل لوحات التطوير التفاعلية في خوادم الإنتاج وحصرها في بيئات التطوير
+    المحلية.
+  tags:
+  - api
+  - graphql
+  - console
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/graphql'
+  - '{{BaseURL}}/graphiql'
+  - '{{BaseURL}}/playground'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - GraphQLPlayground
+    - GraphiQL
+    - graphql-playground-html
+  - type: status
+    status:
+    - 200

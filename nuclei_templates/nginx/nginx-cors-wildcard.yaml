@@ -1,0 +1,30 @@
+id: nginx-cors-wildcard
+info:
+  name: Nginx Insecure CORS Wildcard Header Misconfiguration
+  author: YemenScan-Core
+  severity: medium
+  description: 'إعداد ترويسة CORS في Nginx بشكل غير آمن يسمح لأي موقع خارجي بقراءة
+    الاستجابات عبر Access-Control-Allow-Origin: *.'
+  remediation: تحديد النطاقات المسموحة بدقة ومنع استخدام النجمة العامة مع البيانات
+    المخصصة أو الحساسة.
+  tags:
+  - nginx
+  - cors
+  - headers
+  - medium
+http:
+- method: OPTIONS
+  path:
+  - '{{BaseURL}}/api/'
+  headers:
+    Origin: https://attacker.com
+  matchers-condition: and
+  matchers:
+  - type: word
+    part: header
+    words:
+    - 'Access-Control-Allow-Origin: *'
+  - type: status
+    status:
+    - 200
+    - 204

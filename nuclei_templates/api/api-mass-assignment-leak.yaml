@@ -1,0 +1,28 @@
+id: api-mass-assignment-leak
+info:
+  name: REST API Sensitive Object & Mass Assignment Exposure
+  author: YemenScan-Core
+  severity: high
+  description: واجهة API تعيد بيانات المستخدمين الحساسة (مثل isAdmin, role, password_hash)
+    مما يمهد لهجمات Mass Assignment.
+  remediation: تطبيق نمط DTO وتحديد الحقول المسموح بقراءتها وكتابتها بشكل صريح ومنع
+    تصدير حقول الصلاحيات.
+  tags:
+  - api
+  - mass-assignment
+  - owasp-api
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/api/v1/users'
+  - '{{BaseURL}}/api/users/me'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '"isAdmin":'
+    - '"role":'
+    - '"password_hash":'
+  - type: status
+    status:
+    - 200

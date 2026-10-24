@@ -1,0 +1,32 @@
+id: sql-injection-detect
+info:
+  name: SQL Injection Vulnerability Detection (Union / Pattern)
+  author: YemenScan-Core
+  severity: critical
+  description: اكتشاف ثغرة حقن أوامر قواعد البيانات SQL Injection تسمح بالاستعلام
+    والتحكم ببيانات النظام وسحب الجداول.
+  remediation: استخدام الاستعلامات المعلمة (Parameterized Queries) ومحركات الربط الآمن
+    ORM وفصل صلاحيات قواعد البيانات.
+  tags:
+  - sqli
+  - injection
+  - database
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?id=1''+OR+''1''=''1'
+  - '{{BaseURL}}/?search=1''+UNION+SELECT+NULL,NULL,NULL--'
+  matchers-condition: or
+  matchers:
+  - type: word
+    words:
+    - SQL syntax
+    - mysql_fetch_array
+    - ORA-01756
+    - SQLite/JDBCDriver
+    - PostgreSQL query failed
+  - type: regex
+    regex:
+    - UNION.*SELECT
+    - XPATH syntax error

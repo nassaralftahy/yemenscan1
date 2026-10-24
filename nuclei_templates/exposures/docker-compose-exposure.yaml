@@ -1,0 +1,28 @@
+id: docker-compose-exposure
+info:
+  name: Docker Compose Configuration Disclosure
+  author: YemenScan-Core
+  severity: high
+  description: كشف ملف docker-compose.yml يعرض بنية الحاويات الداخلية وشبكات الخدمات
+    وكلمات مرور الحاويات.
+  remediation: نقل ملفات نشر الحاويات خارج مجلد خدمة الويب وحظر الوصول لملفات YAML
+    العامة.
+  tags:
+  - exposure
+  - docker
+  - devops
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/docker-compose.yml'
+  - '{{BaseURL}}/docker-compose.yaml'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - 'version:'
+    - 'services:'
+    - 'image:'
+  - type: status
+    status:
+    - 200

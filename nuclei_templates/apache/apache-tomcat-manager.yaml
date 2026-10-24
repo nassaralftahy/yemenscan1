@@ -1,0 +1,27 @@
+id: apache-tomcat-manager
+info:
+  name: Apache Tomcat Web Application Manager Interface Exposed
+  author: YemenScan-Core
+  severity: high
+  description: واجهة إدارة تطبيقات Apache Tomcat متاحة للوصول العام، مما يجعلها عرضة
+    لمحاولات تسجيل الدخول وتخمين كلمات المرور.
+  remediation: تقييد مسار /manager وحصره بشبكة الإدارة وتغيير بيانات الدخول الافتراضية
+    في tomcat-users.xml.
+  tags:
+  - apache
+  - tomcat
+  - manager
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/manager/html'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Tomcat Web Application Manager
+    - Apache Tomcat/
+  - type: status
+    status:
+    - 200
+    - 401

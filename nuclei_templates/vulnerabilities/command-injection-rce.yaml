@@ -1,0 +1,27 @@
+id: command-injection-rce
+info:
+  name: OS Command Injection RCE Probe
+  author: YemenScan-Core
+  severity: critical
+  description: ثغرة حقن أوامر نظام التشغيل تتيح تنفيذ أوامر مباشرة وتمرير مخرجات النظام
+    عبر المعاملات غير المعقمة.
+  remediation: استخدام الدوال الآمنة في لغات البرمجة وتجنب استدعاء دوال shell_exec
+    أو system أو exec المباشرة.
+  tags:
+  - rce
+  - command-injection
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?cmd=;id;'
+  - '{{BaseURL}}/?ip=127.0.0.1%7Cid'
+  - '{{BaseURL}}/?query=%26+id+%26'
+  matchers-condition: and
+  matchers:
+  - type: regex
+    regex:
+    - uid=[0-9]+.*gid=[0-9]+.*
+  - type: status
+    status:
+    - 200

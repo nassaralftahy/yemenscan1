@@ -1,0 +1,28 @@
+id: sitemap-admin-disclosure
+info:
+  name: Sitemap & Sensitive Administrative Endpoints Disclosure
+  author: YemenScan-Core
+  severity: medium
+  description: كشف ملفات خرائط الموقع التي تفصح عن مسارات إدارية حساسة وبوابات تحكم
+    داخلية.
+  remediation: مراجعة خريطة الموقع sitemap.xml والتأكد من عدم احتوائها على مسارات
+    إدارية أو تجريبية حساسة.
+  tags:
+  - exposure
+  - sitemap
+  - information-disclosure
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/sitemap.xml'
+  - '{{BaseURL}}/sitemap_index.xml'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - <urlset
+    - <loc>
+  - type: status
+    status:
+    - 200

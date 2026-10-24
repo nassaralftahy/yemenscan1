@@ -1,0 +1,29 @@
+id: iis-web-config
+info:
+  name: Microsoft IIS web.config Application Configuration File Leak
+  author: YemenScan-Core
+  severity: high
+  description: ملف تكوين خادم IIS وتطبيق ASP.NET (web.config) متاح للقراءة، كاشفاً
+    عن سلاسل الاتصال بقواعد البيانات ومفاتيح machineKey.
+  remediation: التأكد من تفعيل وحدة حظر الملفات (Request Filtering) لمنع استدعاء ملفات
+    *.config نهائياً.
+  tags:
+  - iis
+  - aspnet
+  - web-config
+  - windows
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/web.config'
+  - '{{BaseURL}}/web.config.bak'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - <configuration>
+    - <system.web>
+    - connectionStrings
+  - type: status
+    status:
+    - 200

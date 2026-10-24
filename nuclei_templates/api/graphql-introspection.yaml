@@ -1,0 +1,31 @@
+id: graphql-introspection
+info:
+  name: GraphQL API Introspection Query Enabled
+  author: YemenScan-Core
+  severity: medium
+  description: استعلامات الاستبطان Introspection مفعلة في واجهة GraphQL، مما يتيح
+    للمهاجمين استعراض كامل مخطط البيانات والأنواع والاستعلامات المخفية.
+  remediation: تعطيل ميزة Introspection في بيئات الإنتاج الفعلية.
+  tags:
+  - api
+  - graphql
+  - introspection
+  - medium
+http:
+- method: POST
+  path:
+  - '{{BaseURL}}/graphql'
+  - '{{BaseURL}}/api/graphql'
+  headers:
+    Content-Type: application/json
+  body: '{"query":"query { __schema { types { name } } }"}'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - __schema
+    - types
+    - queryType
+  - type: status
+    status:
+    - 200

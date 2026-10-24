@@ -1,0 +1,26 @@
+id: xss-reflection-detect
+info:
+  name: Cross-Site Scripting (Reflected XSS Context)
+  author: YemenScan-Core
+  severity: high
+  description: انعكاس أكواد برمجية خبيثة في استجابة الخادم بدون تعقيم أو ترميز HTML
+    مناسب، مما يسمح باختطاف جلسات المستخدمين.
+  remediation: ترميز كافة المخرجات بحسب السياق (HTML Entity Encoding) وتفعيل سياسة
+    أمان المحتوى الصارمة (CSP).
+  tags:
+  - xss
+  - reflected
+  - owasp
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?q=<script>alert(''YS_XSS'')</script>'
+  - '{{BaseURL}}/?search="><script>alert(''YS_XSS'')</script>'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - <script>alert('YS_XSS')</script>
+  - type: status
+    status:
+    - 200

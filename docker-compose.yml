@@ -1,0 +1,36 @@
+name: yemenscan_prod
+
+services:
+  db:
+    image: docker.io/library/postgres:15
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yemenscan_user
+      POSTGRES_PASSWORD: yemenscan_secure_password123
+      POSTGRES_DB: yemenscan_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_v2:/var/lib/postgresql/data
+
+  web:
+    build: .
+    image: yemenscan1-web:latest
+    pull_policy: build
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://yemenscan_user:yemenscan_secure_password123@db:5432/yemenscan_db
+      - GEMINI_API_KEY=AQ.Ab8RN6LIIf8hFT0LClX813K73P-xubA1a2Riy4D90jSK2zDPrA
+      - PREFER_LOCAL_TOOLS=true
+    volumes:
+      - ./scans:/app/scans
+      - ./nuclei_templates:/app/nuclei_templates
+    depends_on:
+      - db
+
+volumes:
+  postgres_data_v2:
+    driver: local

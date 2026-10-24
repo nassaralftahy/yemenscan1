@@ -1,0 +1,25 @@
+id: git-config-exposure
+info:
+  name: Git Repository Configuration File Disclosure (.git/config)
+  author: YemenScan-Core
+  severity: high
+  description: ملف تكوين Git مكشوف، مما يكشف عن روابط المستودعات الخاصة وأسماء المطورين
+    ورموز المصادقة المحتملة.
+  remediation: حظر الوصول لكافة ملفات ومجلدات نظام التحكم بالإصدارات Git من خادم الويب.
+  tags:
+  - exposure
+  - git
+  - config
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/.git/config'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '[core]'
+    - repositoryformatversion
+  - type: status
+    status:
+    - 200

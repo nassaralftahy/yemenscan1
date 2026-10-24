@@ -1,0 +1,28 @@
+id: wp-user-enumeration
+info:
+  name: WordPress REST API User Enumeration
+  author: YemenScan-Core
+  severity: medium
+  description: واجهة برمجة تطبيقات ووردبريس تسمح بسرد أسماء حسابات المستخدمين والمدراء
+    عبر نقطة /wp-json/wp/v2/users.
+  remediation: تقييد الوصول لواجهة المستخدمين في REST API للمستخدمين المصادق عليهم
+    فقط.
+  tags:
+  - wordpress
+  - recon
+  - users
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/wp-json/wp/v2/users'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '"slug":'
+    - '"avatar_urls":'
+    - '"id":'
+  - type: status
+    status:
+    - 200

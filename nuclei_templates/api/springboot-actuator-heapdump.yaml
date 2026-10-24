@@ -1,0 +1,28 @@
+id: springboot-actuator-heapdump
+info:
+  name: Spring Boot Actuator Heapdump Memory Leak
+  author: YemenScan-Core
+  severity: high
+  description: نقطة تفريغ الذاكرة /actuator/heapdump متاحة بدون مصادقة، مما يتيح تنزيل
+    ذاكرة تطبيق Java بالكامل واستخراج الجلسات والمفاتيح.
+  remediation: إلغاء تفعيل نقطة نهاية heapdump في ملف application.properties أو فرض
+    مصادقة Spring Security.
+  tags:
+  - api
+  - spring
+  - actuator
+  - heapdump
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/actuator/heapdump'
+  matchers-condition: and
+  matchers:
+  - type: word
+    part: header
+    words:
+    - application/octet-stream
+    - gzip
+  - type: status
+    status:
+    - 200

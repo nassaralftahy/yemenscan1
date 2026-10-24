@@ -1,0 +1,28 @@
+id: phpmyadmin-panel
+info:
+  name: phpMyAdmin Database Management Panel Exposure
+  author: YemenScan-Core
+  severity: medium
+  description: لوحة إدارة قواعد البيانات phpMyAdmin متاحة للوصول العام، مما يجعلها
+    هدفاً لهجمات التخمين ومحاولات الاستغلال.
+  remediation: تقييد الوصول للوحة phpMyAdmin عبر الشبكة الخاصة VPN أو حصرها بعناوين
+    IP موثوقة وتغيير مسار الوصول الافتراضي.
+  tags:
+  - exposure
+  - phpmyadmin
+  - mysql
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/phpmyadmin/'
+  - '{{BaseURL}}/pma/'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - phpMyAdmin
+    - pma_username
+  - type: status
+    status:
+    - 200

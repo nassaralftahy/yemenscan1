@@ -1,0 +1,28 @@
+id: ssh-private-key-leak
+info:
+  name: SSH Private Key File Disclosure (id_rsa)
+  author: YemenScan-Core
+  severity: critical
+  description: ملف المفتاح الخاص لاتصال SSH مكشوف للعامة، مما يتيح تسجيل الدخول المباشر
+    إلى خادم النظام والتحكم به.
+  remediation: حذف المفتاح من مجلد الخادم وتغيير المفتاح الخاص المعتمد وإلغاء تصريحه
+    من authorized_keys.
+  tags:
+  - exposure
+  - ssh
+  - keys
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/id_rsa'
+  - '{{BaseURL}}/.ssh/id_rsa'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - BEGIN RSA PRIVATE KEY
+    - BEGIN OPENSSH PRIVATE KEY
+  - type: status
+    status:
+    - 200

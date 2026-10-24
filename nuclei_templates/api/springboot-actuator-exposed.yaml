@@ -1,0 +1,30 @@
+id: springboot-actuator-exposed
+info:
+  name: Spring Boot Actuator Endpoints Exposure
+  author: YemenScan-Core
+  severity: high
+  description: نقاط نهاية Spring Boot Actuator متاحة للعامة، مما يكشف عن حالة الخادم
+    والمقاييس والبيئة الداخلية.
+  remediation: تعطيل أو تقييد مسارات actuator عبر ضبط management.endpoints.web.exposure.include=health
+    فقط وتفعيل المصادقة الإجبارية.
+  tags:
+  - api
+  - spring
+  - actuator
+  - java
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/actuator'
+  - '{{BaseURL}}/actuator/env'
+  - '{{BaseURL}}/actuator/mappings'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - _links
+    - /actuator/health
+    - propertySources
+  - type: status
+    status:
+    - 200

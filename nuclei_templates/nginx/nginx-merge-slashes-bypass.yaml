@@ -1,0 +1,28 @@
+id: nginx-merge-slashes-bypass
+info:
+  name: Nginx Merge Slashes URI Path Authentication Bypass
+  author: YemenScan-Core
+  severity: medium
+  description: تعطيل خاصية merge_slashes في Nginx قد يسمح بتجاوز قواعد التوجيه والتحكم
+    بالوصول عبر إرسال شرطات مائلة مكررة (///admin).
+  remediation: الإبقاء على خاصية merge_slashes on كخيار افتراضي في ملف nginx.conf.
+  tags:
+  - nginx
+  - bypass
+  - auth
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}///admin/'
+  - '{{BaseURL}}///private/'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Dashboard
+    - Administration
+    - Admin Panel
+  - type: status
+    status:
+    - 200

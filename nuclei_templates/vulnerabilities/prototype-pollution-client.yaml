@@ -1,0 +1,27 @@
+id: prototype-pollution-client
+info:
+  name: Client-Side Prototype Pollution Probe
+  author: YemenScan-Core
+  severity: medium
+  description: تعديل النموذج الأولي Object.prototype عبر استعلامات الويب يتيح للمهاجمين
+    التحكم بسلوك نصوص JavaScript وتنفيذ XSS.
+  remediation: تجميد النموذج الأولي (Object.freeze) أو استخدام خريطة Map بدلاً من
+    الكائنات المفتوحة وتحديث مكتبات الواجهة الأمامية.
+  tags:
+  - prototype-pollution
+  - javascript
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?__proto__[polluted]=true'
+  - '{{BaseURL}}/#__proto__[polluted]=true'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - __proto__
+    - polluted
+  - type: status
+    status:
+    - 200

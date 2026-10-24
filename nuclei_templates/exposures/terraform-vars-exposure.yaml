@@ -1,0 +1,28 @@
+id: terraform-vars-exposure
+info:
+  name: Terraform State & Secret Variables Disclosure
+  author: YemenScan-Core
+  severity: high
+  description: تسريب ملفات البنية التحتية كرموز Terraform (terraform.tfvars أو .tfstate)
+    يكشف كلمات المرور وبنية الشبكات السحابية.
+  remediation: إزالة ملفات الحالة من مجلدات الويب وتخزينها في مساحات تخزين بعيدة مشفرة
+    مع تفعيل التدوير.
+  tags:
+  - exposure
+  - terraform
+  - devops
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/terraform.tfvars'
+  - '{{BaseURL}}/terraform.tfstate'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - terraform_version
+    - resources
+    - serial
+  - type: status
+    status:
+    - 200

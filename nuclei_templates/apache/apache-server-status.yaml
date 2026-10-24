@@ -1,0 +1,27 @@
+id: apache-server-status
+info:
+  name: Apache mod_status Server Status Page Exposure
+  author: YemenScan-Core
+  severity: medium
+  description: صفحة حالة الخادم mod_status متاحة للعامة، مما يكشف عن كافة طلبات المستخدمين
+    الحالية وعناوين IP والموارد المستدعاة.
+  remediation: تقييد الوصول لصفحة server-status بحصرها بعناوين IP الخاصة بالإدارة
+    المحلية.
+  tags:
+  - apache
+  - server-status
+  - recon
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/server-status'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Apache Server Status for
+    - 'Current Time:'
+  - type: status
+    status:
+    - 200

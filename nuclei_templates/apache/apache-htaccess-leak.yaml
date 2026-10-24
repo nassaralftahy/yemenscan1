@@ -1,0 +1,27 @@
+id: apache-htaccess-leak
+info:
+  name: Apache .htaccess Server Access Control Configuration Leak
+  author: YemenScan-Core
+  severity: high
+  description: خادم Apache يفصح عن محتوى ملف .htaccess، مما يكشف قواعد إعادة التوجيه
+    وقيود الوصول والمسارات الداخلية المحمية.
+  remediation: تفعيل حماية FilesMatch لمنع قراءة ملفات .ht* في إعدادات httpd.conf
+    الرئيسية.
+  tags:
+  - apache
+  - htaccess
+  - config
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/.htaccess'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - RewriteEngine
+    - RewriteRule
+    - AuthType
+  - type: status
+    status:
+    - 200

@@ -1,0 +1,26 @@
+id: wp-elementor-upload-rce
+info:
+  name: WordPress Elementor Plugin Arbitrary Upload & RCE
+  author: YemenScan-Core
+  severity: critical
+  description: ثغرة في إضافة Elementor تسمح برفع ملفات برمجية ضارة وتنفيذ أوامر RCE
+    دون تدقيق كافٍ لنوع الملفات.
+  remediation: ترقية ملحق Elementor فوراً إلى أحدث إصدار متاح وسد ثغرات معالجة الرفع.
+  tags:
+  - wordpress
+  - elementor
+  - rce
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/wp-content/plugins/elementor/readme.txt'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Elementor Website Builder
+    - 'Stable tag: 3.'
+  - type: status
+    status:
+    - 200

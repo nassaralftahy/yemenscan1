@@ -1,0 +1,26 @@
+id: svn-repository-exposure
+info:
+  name: Subversion Repository Disclosure (.svn/entries)
+  author: YemenScan-Core
+  severity: high
+  description: كشف مجلد مستودع Subversion مما يسمح بسحب ملفات المشروع والشفرات المصدرية
+    السابقة.
+  remediation: حظر الوصول لمجلدات وملفات .svn في إعدادات خادم الويب.
+  tags:
+  - exposure
+  - svn
+  - source-code
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/.svn/entries'
+  - '{{BaseURL}}/.svn/wc.db'
+  matchers-condition: or
+  matchers:
+  - type: word
+    words:
+    - svn:special
+    - SQLite format 3
+  - type: status
+    status:
+    - 200

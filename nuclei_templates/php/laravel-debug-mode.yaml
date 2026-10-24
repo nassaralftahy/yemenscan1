@@ -1,0 +1,32 @@
+id: laravel-debug-mode
+info:
+  name: Laravel Ignition Remote Debug Mode Active
+  author: YemenScan-Core
+  severity: critical
+  description: واجهة التصحيح Laravel Ignition مفعلة في بيئة الإنتاج، مما يتيح استعراض
+    مفاتيح التشفير وتنفيذ شفرات برمجية عن بعد.
+  remediation: تعطيل وضع التصحيح وضبط APP_DEBUG=false في ملف .env الخاص بتطبيق Laravel.
+  tags:
+  - php
+  - laravel
+  - ignition
+  - debug
+  - critical
+http:
+- method: POST
+  path:
+  - '{{BaseURL}}/_ignition/execute-solution'
+  headers:
+    Content-Type: application/json
+  body: '{"solution":"Facade\\Ignition\\Solutions\\MakeViewVariableOptionalSolution"}'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Ignition
+    - Laravel
+    - viewData
+  - type: status
+    status:
+    - 200
+    - 500

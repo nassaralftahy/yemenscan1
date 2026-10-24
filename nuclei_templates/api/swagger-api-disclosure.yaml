@@ -1,0 +1,31 @@
+id: swagger-api-disclosure
+info:
+  name: Swagger & OpenAPI Schema Definition Disclosure
+  author: YemenScan-Core
+  severity: medium
+  description: مخطط واجهات برمجة التطبيقات Swagger/OpenAPI متاح للعامة، مما يسهل للمهاجم
+    معرفة نقاط النهاية الداخلية والمعاملات ونماذج البيانات.
+  remediation: تقييد الوصول لملفات ومسارات swagger.json و openapi.json بالمستخدمين
+    المصرح لهم.
+  tags:
+  - api
+  - swagger
+  - openapi
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/swagger.json'
+  - '{{BaseURL}}/openapi.json'
+  - '{{BaseURL}}/v2/api-docs'
+  - '{{BaseURL}}/v3/api-docs'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - 'swagger":'
+    - 'openapi":'
+    - 'paths":'
+  - type: status
+    status:
+    - 200

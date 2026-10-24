@@ -1,0 +1,29 @@
+id: swagger-ui-explorer
+info:
+  name: Swagger UI Interactive API Explorer Exposed
+  author: YemenScan-Core
+  severity: medium
+  description: واجهة Swagger UI التفاعلية متاحة دون مصادقة، مما يتيح تجربة الاستدعاءات
+    واستكشاف واجهات البرمجة بسهولة.
+  remediation: تعطيل واجهة Swagger UI في بيئة الإنتاج أو حمايتها بنظام مصادقة قوي.
+  tags:
+  - api
+  - swagger
+  - explorer
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/swagger-ui.html'
+  - '{{BaseURL}}/swagger/index.html'
+  - '{{BaseURL}}/docs/'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - swagger-ui
+    - Swagger UI
+    - swagger-section
+  - type: status
+    status:
+    - 200

@@ -1,0 +1,31 @@
+id: database-dump-leak
+info:
+  name: Database Backup SQL Dump Exposure
+  author: YemenScan-Core
+  severity: critical
+  description: ملف تصدير قاعدة بيانات SQL مكشوف للعامة، مما يتيح تنزيل كافة سجلات
+    المستخدمين والجداول الحساسة وبيانات النظام.
+  remediation: حذف ملفات النسخ الاحتياطي من مجلد الويب وتخزين النسخ الاحتياطية في
+    خوادم تخزين سحابية آمنة ومحمية.
+  tags:
+  - exposure
+  - database
+  - sql
+  - backup
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/dump.sql'
+  - '{{BaseURL}}/database.sql'
+  - '{{BaseURL}}/backup.sql'
+  - '{{BaseURL}}/db.sql'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - CREATE TABLE
+    - INSERT INTO
+  - type: status
+    status:
+    - 200

@@ -1,0 +1,27 @@
+id: nginx-alias-traversal
+info:
+  name: Nginx Off-By-Slash Alias Directory Traversal
+  author: YemenScan-Core
+  severity: high
+  description: خطأ إعداد في تعليمة alias داخل Nginx عند إغفال الشرطة المائلة الختامية
+    يتيح للمهاجم قراءة ملفات خارج المجلد المحدد.
+  remediation: التأكد من مطابقة الشرطة المائلة الختامية في كل من مسار location ومسار
+    alias (مثل location /static/ { alias /path/to/static/; }).
+  tags:
+  - nginx
+  - traversal
+  - misconfiguration
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/static../'
+  - '{{BaseURL}}/files../'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Index of /
+    - <title>Index of
+  - type: status
+    status:
+    - 200

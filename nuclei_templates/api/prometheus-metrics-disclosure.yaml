@@ -1,0 +1,29 @@
+id: prometheus-metrics-disclosure
+info:
+  name: Prometheus Metrics & Operational Telemetry Leak
+  author: YemenScan-Core
+  severity: medium
+  description: نقطة مقاييس المراقبة /metrics مكشوفة بدون مصادقة، مما يفصح عن تفاصيل
+    استخدام الذاكرة وأسماء الخوادم والأداء الداخلي.
+  remediation: حظر الوصول لمسار /metrics وحصره بخادم المراقبة الداخلي أو تفعيل المصادقة
+    الأساسية المتبادلة.
+  tags:
+  - api
+  - metrics
+  - prometheus
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/metrics'
+  - '{{BaseURL}}/actuator/prometheus'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '# HELP'
+    - '# TYPE'
+    - http_requests_total
+  - type: status
+    status:
+    - 200

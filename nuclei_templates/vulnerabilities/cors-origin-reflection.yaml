@@ -1,0 +1,27 @@
+id: cors-origin-reflection
+info:
+  name: Arbitrary Origin CORS Reflection Misconfiguration
+  author: YemenScan-Core
+  severity: high
+  description: الخادم يعكس أي أصل عشوائي في ترويسة Access-Control-Allow-Origin مع
+    السماح باعتمادات المصادقة Credentials، مما يسمح بسرقة بيانات المستخدمين عبر مواقع
+    معادية.
+  remediation: تحديد قائمة بيضاء صارمة للأصول المسموح لها بمشاركة الموارد بدلاً من
+    عكس الترويسة الواردة تلقائياً.
+  tags:
+  - cors
+  - misconfiguration
+  - headers
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/'
+  headers:
+    Origin: https://evil-attacker-site.com
+  matchers-condition: and
+  matchers:
+  - type: word
+    part: header
+    words:
+    - 'Access-Control-Allow-Origin: https://evil-attacker-site.com'
+    - 'Access-Control-Allow-Credentials: true'

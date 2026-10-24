@@ -1,0 +1,28 @@
+id: phpinfo-disclosure
+info:
+  name: PHP Information Disclosure Page (phpinfo)
+  author: YemenScan-Core
+  severity: medium
+  description: صفحة معلومات تكوين PHP مكشوفة (phpinfo)، مما يفصح عن مسارات النظام
+    والمتغيرات وإصدارات الإضافات وخيارات الأمان.
+  remediation: حذف ملفات phpinfo من الخادم وتعطيل دالة phpinfo في php.ini عبر disable_functions.
+  tags:
+  - php
+  - phpinfo
+  - recon
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/phpinfo.php'
+  - '{{BaseURL}}/info.php'
+  - '{{BaseURL}}/test.php'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - PHP Version
+    - Configuration File (php.ini) Path
+  - type: status
+    status:
+    - 200

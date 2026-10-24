@@ -1,0 +1,28 @@
+id: composer-json-exposure
+info:
+  name: PHP Composer Dependency Manifest Disclosure
+  author: YemenScan-Core
+  severity: medium
+  description: كشف ملف composer.json يعرض أسماء الحزم والمكتبات البرمجية وإصداراتها
+    الدقيقة، مما يسهل البحث عن ثغرات مكونات الطرف الثالث.
+  remediation: حظر الوصول المباشر لملفات composer.json و composer.lock عبر إعدادات
+    خادم الويب.
+  tags:
+  - php
+  - composer
+  - dependencies
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/composer.json'
+  - '{{BaseURL}}/composer.lock'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '"require":'
+    - '"autoload":'
+  - type: status
+    status:
+    - 200

@@ -1,0 +1,27 @@
+id: iis-trace-disclosure
+info:
+  name: Microsoft ASP.NET Diagnostic Trace Viewer Leak (trace.axd)
+  author: YemenScan-Core
+  severity: medium
+  description: واجهة تتبع طلبات ASP.NET (trace.axd) متاحة للعامة، مما يكشف عن تفاصيل
+    الطلبات والجلسات وكعكات الدخول والمقاييس الداخلية.
+  remediation: تعطيل خاصية التتبع عبر ضبط <trace enabled="false" localOnly="true"/>
+    في ملف web.config.
+  tags:
+  - iis
+  - aspnet
+  - trace
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/trace.axd'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Application Trace
+    - Requests to this Application
+  - type: status
+    status:
+    - 200

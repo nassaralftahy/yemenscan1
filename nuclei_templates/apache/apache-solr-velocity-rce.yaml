@@ -1,0 +1,27 @@
+id: apache-solr-velocity-rce
+info:
+  name: Apache Solr Velocity Template Remote Code Execution
+  author: YemenScan-Core
+  severity: critical
+  description: ثغرة في محرك قوالب Velocity الخاص بـ Apache Solr تتيح تشغيل شفرات برمجية
+    عن بعد عن طريق تمرير معلمات خبيثة في طلبات البحث.
+  remediation: ترقية خوادم Apache Solr وتعطيل ميزة params.resource.loader في تكوينات
+    solrconfig.xml.
+  tags:
+  - apache
+  - solr
+  - rce
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/solr/admin/info/system'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - solr-spec-version
+    - lucene-spec-version
+  - type: status
+    status:
+    - 200

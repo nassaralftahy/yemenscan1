@@ -1,0 +1,27 @@
+id: heapdump-memory-leak
+info:
+  name: Java Heapdump / Core Memory Dump Exposure
+  author: YemenScan-Core
+  severity: high
+  description: ملف تفريغ ذاكرة الخادم heapdump مكشوف، مما يتيح استخراج الجلسات النشطة
+    والمفاتيح السرية من الذاكرة العشوائية.
+  remediation: حظر تنزيل ملفات .hprof و .dump ونقلها خارج بيئة التشغيل للتحليل بأمان.
+  tags:
+  - exposure
+  - heapdump
+  - memory
+  - java
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/heapdump'
+  - '{{BaseURL}}/dump.hprof'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - JAVA PROFILE 1.0
+    - HPROF
+  - type: status
+    status:
+    - 200

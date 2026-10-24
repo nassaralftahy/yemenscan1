@@ -1,0 +1,26 @@
+id: git-repository-exposure
+info:
+  name: Git Repository Source Code Leak (.git/HEAD)
+  author: YemenScan-Core
+  severity: critical
+  description: مجلد مستودع Git متاح للعامة، مما يتيح للمهاجمين استخراج كامل الشفرة
+    المصدرية للمشروع وتاريخ التعديلات والمفاتيح المخزنة.
+  remediation: حظر الوصول لمجلد .git بشكل دائم في خادم الويب (مثل location ~ /\.git
+    { deny all; }).
+  tags:
+  - exposure
+  - git
+  - source-code
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/.git/HEAD'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - 'ref: refs/heads/'
+  - type: status
+    status:
+    - 200

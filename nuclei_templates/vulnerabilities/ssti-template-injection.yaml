@@ -1,0 +1,27 @@
+id: ssti-template-injection
+info:
+  name: Server-Side Template Injection (SSTI Evaluation Probe)
+  author: YemenScan-Core
+  severity: high
+  description: حقن قوالب الخادم SSTI في محركات مثل Jinja2 أو Twig أو FreeMarker يتيح
+    للمهاجم تنفيذ تعبيرات حسابية تقود إلى RCE.
+  remediation: عدم تمرير مدخلات المستخدم مباشرة إلى دوال تصيير القوالب واستخدام خيارات
+    البيئة الرملية (Sandbox).
+  tags:
+  - ssti
+  - injection
+  - rce
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/?name={{7*7}}'
+  - '{{BaseURL}}/?q=${7*7}'
+  - '{{BaseURL}}/?msg=<%= 7*7 %>'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - '49'
+  - type: status
+    status:
+    - 200

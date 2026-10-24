@@ -1,0 +1,30 @@
+id: backup-files-exposure
+info:
+  name: Web Application Compressed Backup Archive Leak
+  author: YemenScan-Core
+  severity: high
+  description: ملفات أرشيف مضغوطة تحوي نسخاً احتياطية كاملة من موقع الويب متاحة للتحميل
+    العام بدون قيود.
+  remediation: إزالة ملفات الأرشيف (zip, tar.gz, rar) من مسارات الويب العامة فوراً.
+  tags:
+  - exposure
+  - backup
+  - archive
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/backup.zip'
+  - '{{BaseURL}}/site.zip'
+  - '{{BaseURL}}/backup.tar.gz'
+  - '{{BaseURL}}/www.zip'
+  matchers-condition: and
+  matchers:
+  - type: word
+    part: header
+    words:
+    - application/zip
+    - application/x-gzip
+    - application/octet-stream
+  - type: status
+    status:
+    - 200

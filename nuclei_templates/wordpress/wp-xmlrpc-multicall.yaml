@@ -1,0 +1,29 @@
+id: wp-xmlrpc-multicall
+info:
+  name: WordPress XML-RPC System Multicall Brute-Force Exposure
+  author: YemenScan-Core
+  severity: medium
+  description: نقطة xmlrpc.php مفعلة وتدعم استدعاءات system.multicall، مما يتيح شن
+    هجمات تخمين كلمات المرور بسرعة فائقة وتجاوز حدود الطلبات.
+  remediation: تعطيل XML-RPC عبر خادم الويب أو استخدام إضافات الحماية لحظر طلبات xmlrpc.php.
+  tags:
+  - wordpress
+  - xmlrpc
+  - bruteforce
+  - medium
+http:
+- method: POST
+  path:
+  - '{{BaseURL}}/xmlrpc.php'
+  headers:
+    Content-Type: text/xml
+  body: <methodCall><methodName>system.listMethods</methodName><params></params></methodCall>
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - <methodResponse>
+    - system.multicall
+  - type: status
+    status:
+    - 200

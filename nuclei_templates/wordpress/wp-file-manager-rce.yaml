@@ -1,0 +1,31 @@
+id: wp-file-manager-rce
+info:
+  name: WordPress File Manager Plugin RCE (CVE-2020-25213)
+  author: YemenScan-Core
+  severity: critical
+  description: ثغرة في مكتبة elFinder المدمجة مع إضافة WP File Manager تتيح تنفيذ
+    أوامر برمجية ورفع ملفات Webshell بدون مصادقة.
+  remediation: ترقية إضافة WP File Manager إلى الإصدار 6.9 أو أعلى وحذف ملفات موصل
+    elFinder غير المحمية.
+  tags:
+  - wordpress
+  - wp-plugin
+  - rce
+  - cve2020
+  - critical
+http:
+- method: POST
+  path:
+  - '{{BaseURL}}/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php'
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body: cmd=upload
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - errUnknownCmd
+    - elFinder
+  - type: status
+    status:
+    - 200

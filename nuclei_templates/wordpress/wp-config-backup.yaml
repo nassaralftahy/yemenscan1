@@ -1,0 +1,31 @@
+id: wp-config-backup
+info:
+  name: WordPress Database Configuration Backup Leak (wp-config.php.bak)
+  author: YemenScan-Core
+  severity: critical
+  description: نسخة احتياطية من ملف wp-config مكشوفة، مما يكشف بيانات الاتصال بقاعدة
+    بيانات ووردبريس ومفاتيح التمليح السرية.
+  remediation: حذف كافة ملفات النسخ الاحتياطية لـ wp-config من مجلد الخادم وتغيير
+    كلمات مرور قاعدة البيانات ومفاتيح WordPress Salts.
+  tags:
+  - wordpress
+  - config
+  - backup
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/wp-config.php.bak'
+  - '{{BaseURL}}/wp-config.php.save'
+  - '{{BaseURL}}/wp-config.php.swp'
+  - '{{BaseURL}}/wp-config.old'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - DB_PASSWORD
+    - DB_USER
+    - AUTH_KEY
+  - type: status
+    status:
+    - 200

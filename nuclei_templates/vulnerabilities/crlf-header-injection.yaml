@@ -1,0 +1,23 @@
+id: crlf-header-injection
+info:
+  name: CRLF HTTP Response Splitting Injection
+  author: YemenScan-Core
+  severity: medium
+  description: حقن محارف نهاية السطر Carriage Return Line Feed في ترويسات الاستجابة
+    يتيح التلاعب بترويسات الأمان أو تزييف ملفات تعريف الارتباط.
+  remediation: تجريد وإزالة محارف \r و \n من كافة المدخلات قبل كتابتها داخل ترويسات
+    HTTP.
+  tags:
+  - crlf
+  - headers
+  - medium
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/%0d%0aSet-Cookie:%20yemenscan_crlf=injected'
+  matchers-condition: and
+  matchers:
+  - type: word
+    part: header
+    words:
+    - 'Set-Cookie: yemenscan_crlf=injected'

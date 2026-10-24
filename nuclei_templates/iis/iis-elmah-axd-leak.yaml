@@ -1,0 +1,27 @@
+id: iis-elmah-axd-leak
+info:
+  name: Microsoft ASP.NET ELMAH Error Log Disclosure (elmah.axd)
+  author: YemenScan-Core
+  severity: high
+  description: لوحة تسجيل أخطاء تطبيقات ASP.NET (ELMAH) مكشوفة بدون تصريح، مما يتيح
+    تصفح استثناءات البرمجة وسلاسل الاتصال وكعكات المستخدمين.
+  remediation: تأمين معالج ELMAH وتقييد الوصول له للمشرفين فقط عبر تكوينات التفويض
+    في web.config.
+  tags:
+  - iis
+  - aspnet
+  - elmah
+  - logs
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/elmah.axd'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Error Log for
+    - Powered by ELMAH
+  - type: status
+    status:
+    - 200

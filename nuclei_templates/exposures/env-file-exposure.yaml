@@ -1,0 +1,31 @@
+id: env-file-exposure
+info:
+  name: Environment Configuration File Exposure (.env)
+  author: YemenScan-Core
+  severity: critical
+  description: كشف ملف متغيرات البيئة .env في المجلد الجذر، مما يؤدي إلى تسريب كلمات
+    مرور قواعد البيانات ومفاتيح API السرية والتشفير.
+  remediation: حظر الوصول لكافة الملفات التي تبدأ بنقطة في إعدادات خادم الويب ونقل
+    ملف .env خارج المجلد العام.
+  tags:
+  - exposure
+  - config
+  - env
+  - credentials
+  - critical
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/.env'
+  - '{{BaseURL}}/.env.local'
+  - '{{BaseURL}}/.env.production'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - DB_PASSWORD=
+    - APP_KEY=
+    - DB_HOST=
+  - type: status
+    status:
+    - 200

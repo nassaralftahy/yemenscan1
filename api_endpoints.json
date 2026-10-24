@@ -1,0 +1,233 @@
+[
+  {
+    "url": "http://jannahseeds.com/api/v2",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api/v2",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/docs",
+    "base_url": "http://jannahseeds.com",
+    "path": "/docs",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/api/v1",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api/v1",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/api",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/swagger-ui/index.html",
+    "base_url": "http://jannahseeds.com",
+    "path": "/swagger-ui/index.html",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/swagger/v1/swagger.json",
+    "base_url": "http://jannahseeds.com",
+    "path": "/swagger/v1/swagger.json",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/api-docs",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api-docs",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/swagger.json",
+    "base_url": "http://jannahseeds.com",
+    "path": "/swagger.json",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/openapi.json",
+    "base_url": "http://jannahseeds.com",
+    "path": "/openapi.json",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/swagger-ui.html",
+    "base_url": "http://jannahseeds.com",
+    "path": "/swagger-ui.html",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": true,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/actuator",
+    "base_url": "http://jannahseeds.com",
+    "path": "/actuator",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": true
+  },
+  {
+    "url": "http://jannahseeds.com/status",
+    "base_url": "http://jannahseeds.com",
+    "path": "/status",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/actuator/health",
+    "base_url": "http://jannahseeds.com",
+    "path": "/actuator/health",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": true
+  },
+  {
+    "url": "http://jannahseeds.com/ords/r",
+    "base_url": "http://jannahseeds.com",
+    "path": "/ords/r",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/api/users",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api/users",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/ords",
+    "base_url": "http://jannahseeds.com",
+    "path": "/ords",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/health",
+    "base_url": "http://jannahseeds.com",
+    "path": "/health",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/graphql",
+    "base_url": "http://jannahseeds.com",
+    "path": "/graphql",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/api/auth",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api/auth",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": true,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/ords/f",
+    "base_url": "http://jannahseeds.com",
+    "path": "/ords/f",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": false,
+    "is_actuator": false
+  },
+  {
+    "url": "http://jannahseeds.com/api/login",
+    "base_url": "http://jannahseeds.com",
+    "path": "/api/login",
+    "status_code": 301,
+    "content_type": "text/html",
+    "content_length": 795,
+    "is_swagger_or_doc": false,
+    "is_auth_endpoint": true,
+    "is_actuator": false
+  }
+]

@@ -1,0 +1,28 @@
+id: symfony-profiler-exposed
+info:
+  name: Symfony Web Debug Toolbar & Profiler Exposure
+  author: YemenScan-Core
+  severity: high
+  description: أداة تدقيق Symfony Profiler مفعلة في الإنتاج، مما يكشف تفاصيل الجلسات
+    والطلبات وتكوين قواعد البيانات والمفاتيح.
+  remediation: تعطيل WebProfilerBundle في بيئات الإنتاج الفعلية وحظر مسار /_profiler.
+  tags:
+  - php
+  - symfony
+  - profiler
+  - debug
+http:
+- method: GET
+  path:
+  - '{{BaseURL}}/_profiler/empty/search/results'
+  - '{{BaseURL}}/_profiler/'
+  matchers-condition: and
+  matchers:
+  - type: word
+    words:
+    - Symfony Profiler
+    - Token
+    - Collector
+  - type: status
+    status:
+    - 200
